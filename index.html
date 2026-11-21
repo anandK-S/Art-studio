@@ -3,151 +3,1020 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Art Studio | Curated Exhibition</title>
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="description" content="The Art Studio — Private Atelier & Curated Heritage Exhibition of handcrafted mirror art, mosaic inlays, folk traditions, and contemporary glasswork.">
+    <meta name="theme-color" content="#0e1014">
+    <title>The Art Studio | Atelier & Curated Heritage Exhibition</title>
+
+    <!-- Google Fonts: Editorial Serif + Modern Clean Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Pure Custom CSS (No External Frameworks) -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="top-header bg-white border-bottom py-4">
-        <div class="container-fluid px-lg-5">
-            <div class="row align-items-center">
-                <div class="col-8 col-md-6">
-                    <h1 class="logo-text mb-0">The Art Studio</h1>
-                    <p class="url-text mb-0">ArtHub.com</p>
+    <!-- ====================================================================
+         PURE CSS STATE CONTROLLERS (Checkbox & Radio Toggles)
+         Powers category filtering & mobile sidebar without any JavaScript
+         ==================================================================== -->
+    <input type="radio" name="art-category" id="filter-all" class="state-controller" checked>
+    <input type="radio" name="art-category" id="filter-mirror" class="state-controller">
+    <input type="radio" name="art-category" id="filter-mosaic" class="state-controller">
+    <input type="radio" name="art-category" id="filter-folk" class="state-controller">
+    <input type="radio" name="art-category" id="filter-glass" class="state-controller">
+
+    <!-- Mobile Drawer Checkbox -->
+    <input type="checkbox" id="sidebar-toggle" class="state-controller">
+
+    <!-- Backdrop overlay for mobile drawer -->
+    <label for="sidebar-toggle" class="drawer-backdrop" aria-label="Close Navigation Drawer"></label>
+
+    <!-- ====================================================================
+         1. TOP ANNOUNCEMENT & CONCIERGE BAR
+         ==================================================================== -->
+    <aside class="top-notice-bar" aria-label="Curatorial Notice">
+        <div class="container">
+            <div class="top-notice-inner">
+                <div class="notice-badge">
+                    <span class="notice-badge-dot"></span>
+                    <span>PRIVATE SALON VIEWING — Spring Vernissage 2026: The Splendor of Glass, Mirror & Folk Art</span>
                 </div>
+                <div class="top-contact-links">
+                    <span>Toll Free: <strong>1800-ART-HUB</strong></span>
+                    <span>Concierge: <a href="mailto:support@arthub.com"><strong>support@arthub.com</strong></a></span>
+                    <span>Atelier: <strong>Mumbai | New Delhi | London</strong></span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ====================================================================
+         2. MAIN BRAND HEADER & NAVIGATION
+         ==================================================================== -->
+    <header class="main-header">
+        <div class="container">
+            <div class="main-header-inner">
                 
-                <div class="col-4 col-md-6 text-end">
-                    <div class="d-none d-lg-block header-contact">
-                        <p class="mb-0">Toll Free: <strong>1080</strong></p>
-                        <p class="mb-0">Email: <strong>support@arthub.com</strong></p>
+                <!-- Brand Lockup -->
+                <a href="#home" class="brand-lockup">
+                    <div class="brand-emblem">AS</div>
+                    <div class="brand-names">
+                        <span class="brand-title">The Art Studio</span>
+                        <span class="brand-subtitle">ArtHub.com Atelier & Archive</span>
                     </div>
-                    <button class="btn btn-outline-dark d-lg-none" id="mobileToggle">
-                        <i class="bi bi-filter-left fs-3"></i>
-                    </button>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="desktop-nav" aria-label="Primary Navigation">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#exhibition" class="nav-link">Exhibition</a>
+                    <a href="#craftsmanship" class="nav-link">Craftsmanship</a>
+                    <a href="#philosophy" class="nav-link">Philosophy</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+
+                <!-- Header Actions -->
+                <div class="header-actions">
+                    <a href="#inquiry-modal" class="btn-inquire-gold">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="16" x="2" y="4" rx="2"/>
+                            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                        </svg>
+                        <span>Acquisition Inquiry</span>
+                    </a>
+
+                    <!-- Mobile Drawer Hamburger Label (Pure CSS Trigger) -->
+                    <label for="sidebar-toggle" class="mobile-trigger-btn" aria-label="Toggle Navigation Menu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </label>
                 </div>
+
             </div>
         </div>
     </header>
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark py-1">
-        <div class="container-fluid px-lg-5">
-            <div class="navbar-nav w-100 justify-content-between">
-                <a class="nav-link fw-bold" href="/index.html">HOME</a>
-                <a class="nav-link fw-bold" href="#">ABOUT</a>
-                <a class="nav-link fw-bold" href="#">CONTACT</a>
-                <a class="nav-link fw-bold" href="#">PRODUCT</a>
+    <!-- ====================================================================
+         3. CURATORIAL HERO & EXHIBITION BANNER
+         ==================================================================== -->
+    <section class="curatorial-hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-meta-strip">
+                    <div class="status-pill live">
+                        <span class="status-pulse-dot"></span>
+                        <span>Exhibition Status: Live & Curated</span>
+                    </div>
+                    <span class="exhibition-year">Archive Edition No. IX — 2026</span>
+                </div>
+
+                <h1 class="hero-title">
+                    Where Ancient Craft Meets <em>Contemporary Splendor</em>
+                </h1>
+
+                <p class="hero-desc">
+                    Explore an exclusive private archive of hand-cut Thikri mirror mosaics, Venetian glass inlays, and sacred folk tapestries. Every creation is meticulously commissioned and certified by master artisans.
+                </p>
+
+                <!-- Metrics Counter Bar -->
+                <div class="hero-metrics-grid">
+                    <div class="metric-item">
+                        <span class="metric-number">12<span>+</span></span>
+                        <span class="metric-label">Curated Masterpieces</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">48<span>+</span></span>
+                        <span class="metric-label">Heritage Artisans</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">100<span>%</span></span>
+                        <span class="metric-label">Certified Authentic</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-number">Global</span>
+                        <span class="metric-label">White-Glove Shipping</span>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </nav>
+    </section>
 
-    <div class="search-strip bg-light border-bottom py-2">
-        <div class="container-fluid px-lg-5">
-            <div class="row align-items-center">
-                <div class="col-md-6 d-flex align-items-center">
-                    <span class="me-2 fw-bold small">Search:</span>
-                    <input type="text" id="artSearch" class="form-control form-control-sm" placeholder="Search archive by name...">
+    <!-- ====================================================================
+         4. PURE CSS INTERACTIVE FILTER BAR
+         ==================================================================== -->
+    <div class="filter-sticky-strip" id="exhibition">
+        <div class="container">
+            <div class="filter-strip-inner">
+                
+                <!-- Category Filter Pills (Pure CSS Radio Controls) -->
+                <div class="filter-pills-cluster">
+                    <label for="filter-all" class="filter-label-btn">
+                        <span>All Masterpieces</span>
+                        <span class="filter-count">12</span>
+                    </label>
+                    <label for="filter-mirror" class="filter-label-btn">
+                        <span>① Mirror Art</span>
+                        <span class="filter-count">3</span>
+                    </label>
+                    <label for="filter-mosaic" class="filter-label-btn">
+                        <span>② Mosaic Inlay</span>
+                        <span class="filter-count">3</span>
+                    </label>
+                    <label for="filter-folk" class="filter-label-btn">
+                        <span>③ Royal Folk</span>
+                        <span class="filter-count">3</span>
+                    </label>
+                    <label for="filter-glass" class="filter-label-btn">
+                        <span>④ Modern Glass</span>
+                        <span class="filter-count">3</span>
+                    </label>
                 </div>
-                <div class="col-md-6 text-end d-none d-md-block">
-                    <span class="small text-muted">Exhibition Status: <strong>Live</strong></span>
+
+                <!-- Archive Search Input (Pure HTML/CSS) -->
+                <div class="search-archive-wrapper">
+                    <svg class="search-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="m21 21-4.3-4.3"/>
+                    </svg>
+                    <input type="text" class="search-archive-input" placeholder="Search archive by title or medium..." aria-label="Search archive">
                 </div>
+
             </div>
         </div>
     </div>
 
-    <div class="container-fluid px-lg-5 my-4">
-        <div class="row">
-            
-            <aside class="col-lg-3 col-xl-2 sidebar-container" id="sidebarMenu">
-                <div class="sidebar-header d-lg-none p-3 border-bottom d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0">Categories</h5>
-                    <button class="btn-close" id="closeSidebar"></button>
+    <!-- ====================================================================
+         5. MAIN EXHIBITION WORKSPACE (Sidebar + Art Grid)
+         ==================================================================== -->
+    <div class="container">
+        <div class="app-layout">
+
+            <!-- SIDEBAR: Pure CSS Categories & Atelier Concierge -->
+            <aside class="sidebar-container" id="sidebarMenu">
+                
+                <!-- Mobile Header inside Drawer -->
+                <div class="sidebar-header-mobile">
+                    <h3 class="sidebar-heading" style="margin-bottom:0; padding-bottom:0; border:none;">Exhibition Index</h3>
+                    <label for="sidebar-toggle" class="sidebar-close-symbol" style="position:static;" aria-label="Close Menu">&times;</label>
                 </div>
 
-                <div class="category-tree p-lg-0 p-3">
-                    <div class="category-root mb-3">
-                        <button class="btn btn-cat w-100 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#subCat1">
-                            ① Mirror Art <i class="bi bi-plus-lg"></i>
-                        </button>
-                        <div class="collapse show" id="subCat1">
-                            <ul class="sub-list list-unstyled ms-3 mt-2">
-                                <li onclick="filterArt('Mirror Art')">Traditional Glass Work</li>
-                                <li onclick="filterArt('Mirror Art')">Modern Framed Mirrors</li>
-                            </ul>
-                        </div>
-                    </div>
+                <h3 class="sidebar-heading">Curated Mediums</h3>
 
-                    <div class="category-root mb-3">
-                        <button class="btn btn-cat w-100 d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#subCat2">
-                            ② Mosaic Art <i class="bi bi-plus-lg"></i>
-                        </button>
-                        <div class="collapse" id="subCat2">
-                            <ul class="sub-list list-unstyled ms-3 mt-2">
-                                <li onclick="filterArt('Mosaic')">Tile Mosaics</li>
-                                <li onclick="filterArt('Mosaic')">Glass Inlays</li>
-                            </ul>
-                        </div>
+                <!-- Category Accordion 1: Mirror Art -->
+                <details class="category-accordion" open>
+                    <summary class="category-summary">
+                        <span>① Mirror Art</span>
+                        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <div class="sub-category-list">
+                        <label for="filter-mirror" class="sidebar-cat-link">
+                            <span>Traditional Thikri Glass</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-mirror" class="sidebar-cat-link">
+                            <span>Convex Sunburst Mirrors</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-mirror" class="sidebar-cat-link">
+                            <span>Smoked Bronze Panels</span>
+                            <span class="filter-count">1</span>
+                        </label>
                     </div>
+                </details>
 
-                    <div class="category-root mb-3">
-                        <button class="btn btn-cat w-100 text-start" onclick="filterArt('Folk')">
-                            ③ Folk Art
-                        </button>
+                <!-- Category Accordion 2: Mosaic Art -->
+                <details class="category-accordion" open>
+                    <summary class="category-summary">
+                        <span>② Mosaic Art</span>
+                        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <div class="sub-category-list">
+                        <label for="filter-mosaic" class="sidebar-cat-link">
+                            <span>Venetian Glass Smalti</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-mosaic" class="sidebar-cat-link">
+                            <span>Byzantine Marble Tesserae</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-mosaic" class="sidebar-cat-link">
+                            <span>Mediterranean Inlays</span>
+                            <span class="filter-count">1</span>
+                        </label>
                     </div>
+                </details>
+
+                <!-- Category Accordion 3: Folk Art -->
+                <details class="category-accordion" open>
+                    <summary class="category-summary">
+                        <span>③ Folk Art</span>
+                        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <div class="sub-category-list">
+                        <label for="filter-folk" class="sidebar-cat-link">
+                            <span>Royal Elephant Madhubani</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-folk" class="sidebar-cat-link">
+                            <span>Pichwai Gold Leaf Lotus</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-folk" class="sidebar-cat-link">
+                            <span>Warli Tree of Life Scrolls</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                    </div>
+                </details>
+
+                <!-- Category Accordion 4: Modern Glass -->
+                <details class="category-accordion" open>
+                    <summary class="category-summary">
+                        <span>④ Contemporary Glass</span>
+                        <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                    </summary>
+                    <div class="sub-category-list">
+                        <label for="filter-glass" class="sidebar-cat-link">
+                            <span>Cathedral Prism Arches</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-glass" class="sidebar-cat-link">
+                            <span>Kiln-Cast Fused Bas-Relief</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                        <label for="filter-glass" class="sidebar-cat-link">
+                            <span>Dichroic Free-Blown Glass</span>
+                            <span class="filter-count">1</span>
+                        </label>
+                    </div>
+                </details>
+
+                <!-- Atelier Concierge Card -->
+                <div class="sidebar-atelier-card">
+                    <span class="atelier-card-badge">Bespoke Atelier</span>
+                    <h4 class="atelier-card-title">Commission Custom Heritage Works</h4>
+                    <p class="atelier-card-text">
+                        Need tailored dimensions or site-specific mosaic installations for private residences or boutique hotels?
+                    </p>
+                    <a href="#inquiry-modal" class="atelier-card-btn">Schedule Consultation</a>
                 </div>
+
             </aside>
 
-            <main class="col-lg-9 col-xl-10">
-                <div class="row g-4" id="mainArtGrid">
+            <!-- MAIN ART GRID -->
+            <main>
+                <div class="gallery-section-header">
+                    <div>
+                        <h2 class="gallery-section-title">Current Salon Acquisitions</h2>
+                        <p class="gallery-curation-note">Showing all curated heritage pieces available for private acquisition</p>
                     </div>
+                    <span class="status-pill live">12 Certified Works</span>
+                </div>
+
+                <div class="art-cards-grid" id="mainArtGrid">
+                    
+                    <!-- ==================== ART PIECE 1 ==================== -->
+                    <article class="art-card" data-category="mirror">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=800&auto=format&fit=crop&q=80" alt="Celestial Thikri Mirror Mosaic" class="card-img" loading="lazy">
+                            <span class="card-badge gold">Curator's Choice</span>
+                            <a href="#art-modal-1" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mirror Art</span>
+                                <span class="card-availability">Available: 3 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Celestial Thikri Mirror Mosaic</h3>
+                            <p class="card-desc">
+                                Hand-cut convex mirrors assembled in radial sacred geometry atop a solid Burma teak panel with antique gold leafing.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Belgian Glass & 24K Leaf</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 36" × 36" × 2"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-1" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 2 ==================== -->
+                    <article class="art-card" data-category="mirror">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&auto=format&fit=crop&q=80" alt="Imperial Sunburst Convex Mirror" class="card-img" loading="lazy">
+                            <span class="card-badge new">New Arrival</span>
+                            <a href="#art-modal-2" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mirror Art</span>
+                                <span class="card-availability">Single Masterpiece</span>
+                            </div>
+                            <h3 class="card-title">Imperial Sunburst Convex Mirror</h3>
+                            <p class="card-desc">
+                                Distinctive convex mirror enclosed in a hand-chiseled antiqued brass rays frame, recreating 18th-century salon grandeur.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Cast Brass & Silvered Glass</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 42" Diameter</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-2" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 3 ==================== -->
+                    <article class="art-card" data-category="mirror">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b675?w=800&auto=format&fit=crop&q=80" alt="Nocturne Geometric Bronze Mirror" class="card-img" loading="lazy">
+                            <span class="card-badge exclusive">Exclusive</span>
+                            <a href="#art-modal-3" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mirror Art</span>
+                                <span class="card-availability">Available: 2 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Nocturne Geometric Bronze Mirror</h3>
+                            <p class="card-desc">
+                                Asymmetric beveled bronze-tinted mirrors configured in a minimalist constructivist pattern over ebonized oak wood.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Smoked Bronze Glass & Oak</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 48" × 30" × 1.5"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-3" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 4 ==================== -->
+                    <article class="art-card" data-category="mosaic">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&auto=format&fit=crop&q=80" alt="Azure Venetian Glass Inlay" class="card-img" loading="lazy">
+                            <span class="card-badge gold">Collector's Pick</span>
+                            <a href="#art-modal-4" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mosaic Inlay</span>
+                                <span class="card-availability">Single Masterpiece</span>
+                            </div>
+                            <h3 class="card-title">Azure Venetian Glass Inlay</h3>
+                            <p class="card-desc">
+                                Composed of over 2,400 individual hand-snipped Murano glass smalti tiles capturing deep Mediterranean ocean currents.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Venetian Smalti on Marine Board</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 32" × 32" × 2"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-4" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 5 ==================== -->
+                    <article class="art-card" data-category="mosaic">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=800&auto=format&fit=crop&q=80" alt="Byzantine Marble & Gold Tesserae" class="card-img" loading="lazy">
+                            <span class="card-badge exclusive">Rare Edition</span>
+                            <a href="#art-modal-5" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mosaic Inlay</span>
+                                <span class="card-availability">Available: 1 Piece</span>
+                            </div>
+                            <h3 class="card-title">Byzantine Marble & Gold Tesserae</h3>
+                            <p class="card-desc">
+                                Hand-quarried Carrara white marble and genuine 24-karat gold-sandwiched glass tesserae laid in traditional lime mortar.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Carrara Marble & 24K Gold Glass</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 40" × 28" × 2.5"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-5" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 6 ==================== -->
+                    <article class="art-card" data-category="mosaic">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?w=800&auto=format&fit=crop&q=80" alt="Mediterranean Floral Smalti Panel" class="card-img" loading="lazy">
+                            <span class="card-badge new">New Arrival</span>
+                            <a href="#art-modal-6" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Mosaic Inlay</span>
+                                <span class="card-availability">Available: 2 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Mediterranean Floral Smalti Panel</h3>
+                            <p class="card-desc">
+                                Vibrant botanical mosaic showcasing rare olive-green and terracotta vitreous tiles set in an intricate Roman arabesque scroll.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Vitreous Enamel & Slate</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 36" × 36" × 2"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-6" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 7 ==================== -->
+                    <article class="art-card" data-category="folk">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=800&auto=format&fit=crop&q=80" alt="Royal Elephant Folk Heritage" class="card-img" loading="lazy">
+                            <span class="card-badge gold">Heritage Masterwork</span>
+                            <a href="#art-modal-7" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Royal Folk</span>
+                                <span class="card-availability">Available: 5 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Royal Elephant Madhubani Heritage</h3>
+                            <p class="card-desc">
+                                Authentic Mithila pigment painting celebrating royal ceremonial pachyderms, created with natural indigo, turmeric, and soot.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Mineral Dyes on Hand-Pressed Cloth</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 40" × 30" (Framed)</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-7" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 8 ==================== -->
+                    <article class="art-card" data-category="folk">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01aa342?w=800&auto=format&fit=crop&q=80" alt="Pichwai Shrinathji Lotus Tapestry" class="card-img" loading="lazy">
+                            <span class="card-badge exclusive">Collector's Choice</span>
+                            <a href="#art-modal-8" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Royal Folk</span>
+                                <span class="card-availability">Single Masterpiece</span>
+                            </div>
+                            <h3 class="card-title">Pichwai Shrinathji Lotus Tapestry</h3>
+                            <p class="card-desc">
+                                400-year-old Nathdwara temple textile tradition painted on raw cotton fabric with pure crushed gold leaf and organic indigo.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Pure Gold Leaf on Raw Cotton</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 48" × 36"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-8" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 9 ==================== -->
+                    <article class="art-card" data-category="folk">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1606819717115-9159c900370b?w=800&auto=format&fit=crop&q=80" alt="Warli Tree of Life Sacred Scroll" class="card-img" loading="lazy">
+                            <span class="card-badge new">New Arrival</span>
+                            <a href="#art-modal-9" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Royal Folk</span>
+                                <span class="card-availability">Available: 4 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Warli Tree of Life Sacred Scroll</h3>
+                            <p class="card-desc">
+                                Ancient Sahyadri tribal narrative rendered with rice paste and organic binders on sun-baked ochre clay wash canvas.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Rice Paste on Terracotta Wash</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 36" × 24" (Framed)</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-9" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 10 ==================== -->
+                    <article class="art-card" data-category="glass">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?w=800&auto=format&fit=crop&q=80" alt="Luminous Cathedral Prism Arch" class="card-img" loading="lazy">
+                            <span class="card-badge gold">Exhibition Feature</span>
+                            <a href="#art-modal-10" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Modern Glass</span>
+                                <span class="card-availability">Available: 2 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Luminous Cathedral Prism Arch</h3>
+                            <p class="card-desc">
+                                Hand-soldered zinc cames holding mouth-blown antique cathedral stained glass with dynamic prismatic refraction.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Cathedral Glass & Zinc Came</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 54" × 24" × 1.2"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-10" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 11 ==================== -->
+                    <article class="art-card" data-category="glass">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1579783928621-7a13d66a62d1?w=800&auto=format&fit=crop&q=80" alt="Solar Flare Iridescent Glass Vessel" class="card-img" loading="lazy">
+                            <span class="card-badge exclusive">Sculptural Object</span>
+                            <a href="#art-modal-11" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Modern Glass</span>
+                                <span class="card-availability">Single Masterpiece</span>
+                            </div>
+                            <h3 class="card-title">Solar Flare Iridescent Glass Vessel</h3>
+                            <p class="card-desc">
+                                Furnace free-blown studio glass treated with rare metallic fuming for a mesmerizing iridescent oil-slick luster.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Furnace Blown Glass & Fumed Oxides</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 22" H × 14" W</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-11" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- ==================== ART PIECE 12 ==================== -->
+                    <article class="art-card" data-category="glass">
+                        <div class="card-img-frame">
+                            <img src="https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?w=800&auto=format&fit=crop&q=80" alt="Emerald Ocean Kiln-Fused Bas-Relief" class="card-img" loading="lazy">
+                            <span class="card-badge new">New Arrival</span>
+                            <a href="#art-modal-12" class="quick-view-overlay-btn">Quick View</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-category-strip">
+                                <span class="card-category-name">Modern Glass</span>
+                                <span class="card-availability">Available: 3 Pieces</span>
+                            </div>
+                            <h3 class="card-title">Emerald Ocean Kiln-Fused Bas-Relief</h3>
+                            <p class="card-desc">
+                                Multi-layered float glass kiln-fused at 1,450°F to create an organic topography reminiscent of deep glacial crevasses.
+                            </p>
+                            <div class="card-spec-box">
+                                <div class="spec-line"><strong>Medium:</strong> Kiln-Cast Float Glass on Steel Stand</div>
+                                <div class="spec-line"><strong>Dimensions:</strong> 30" × 30" × 3"</div>
+                            </div>
+                            <div class="card-actions-row">
+                                <a href="#inquiry-modal" class="btn-card-inquire">Inquire Details</a>
+                                <a href="#art-modal-12" class="btn-card-view" title="View Full Piece">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                        <circle cx="12" cy="12" r="3"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
             </main>
 
         </div>
     </div>
 
-    <footer class="exhibition-footer border-top bg-white pt-5 pb-3">
-        <div class="container-fluid px-lg-5">
-            <div class="row">
-                <div class="col-12"><h4 class="mb-4 text-decoration-underline title-font">Contact Details</h4></div>
+    <!-- ====================================================================
+         6. CURATORIAL PILLARS & CRAFTSMANSHIP PHILOSOPHY
+         ==================================================================== -->
+    <section class="craftsmanship-section" id="craftsmanship">
+        <div class="container">
+            <div class="section-lead-header">
+                <span class="section-subtitle-tag">Atelier Philosophy</span>
+                <h2 class="section-main-heading">Preserving The Integrity of Hands</h2>
+                <p class="section-lead-text">
+                    In an age of rapid mechanical replication, The Art Studio is committed to the quiet devotion of hand-tooling, natural binding agents, and ancestral craft lineages.
+                </p>
+            </div>
+
+            <div class="craftsmanship-pillars-grid">
+                <div class="pillar-card">
+                    <div class="pillar-num">01</div>
+                    <h3 class="pillar-title">400-Year Heritage Lineage</h3>
+                    <p class="pillar-desc">
+                        Every Thikri mirror artisan and Madhubani master in our atelier descends from generational guild families, upholding techniques unchanged since royal Mughal and Rajput courts.
+                    </p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-num">02</div>
+                    <h3 class="pillar-title">Over 140 Hours Per Work</h3>
+                    <p class="pillar-desc">
+                        From individual diamond-wheel glass scoring to the meticulous placement of micro-tesserae, our artworks undergo weeks of patient handcrafting and thermal curing.
+                    </p>
+                </div>
+
+                <div class="pillar-card">
+                    <div class="pillar-num">03</div>
+                    <h3 class="pillar-title">Archival & Museum Durability</h3>
+                    <p class="pillar-desc">
+                        We utilize anti-tarnish protective silvering, kiln-annealed glasses, seasoned sustainable hardwoods, and museum-grade UV non-glare glazing for centuries of beauty.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====================================================================
+         7. PURE CSS ACQUISITION MODAL (Triggered via :target)
+         ==================================================================== -->
+    <div id="inquiry-modal" class="modal-overlay">
+        <a href="#exhibition" class="modal-backdrop-exit" aria-label="Close Modal"></a>
+        <div class="modal-dialog-card">
+            <a href="#exhibition" class="modal-close-symbol" aria-label="Close">&times;</a>
+            
+            <div class="modal-form-header">
+                <span class="modal-form-badge">Concierge Service</span>
+                <h3 class="modal-form-title">Private Acquisition Inquiry</h3>
+                <p style="color:var(--text-secondary); font-size:0.85rem; margin-top:0.35rem;">
+                    Please provide your contact details. Our curatorial concierge will respond within 24 hours with provenance documentation, condition reports, and global shipping estimates.
+                </p>
+            </div>
+
+            <form class="modal-form-grid" action="#" method="get" onsubmit="alert('Thank you for your inquiry. Our curatorial director will reach out within 24 hours.'); return false;">
+                <div class="form-field-group">
+                    <label class="form-field-label">Full Name</label>
+                    <input type="text" class="form-control-input" placeholder="e.g. Eleanor Vance" required>
+                </div>
+
+                <div class="form-field-group">
+                    <label class="form-field-label">Email Address</label>
+                    <input type="email" class="form-control-input" placeholder="eleanor@domain.com" required>
+                </div>
+
+                <div class="form-field-group">
+                    <label class="form-field-label">Phone / WhatsApp</label>
+                    <input type="tel" class="form-control-input" placeholder="+1 (555) 000-0000">
+                </div>
+
+                <div class="form-field-group">
+                    <label class="form-field-label">Artwork of Interest</label>
+                    <select class="form-control-select">
+                        <option>Celestial Thikri Mirror Mosaic</option>
+                        <option>Imperial Sunburst Convex Mirror</option>
+                        <option>Nocturne Geometric Bronze Mirror</option>
+                        <option>Azure Venetian Glass Inlay</option>
+                        <option>Byzantine Marble & Gold Tesserae</option>
+                        <option>Mediterranean Floral Smalti Panel</option>
+                        <option>Royal Elephant Madhubani Heritage</option>
+                        <option>Pichwai Shrinathji Lotus Tapestry</option>
+                        <option>Warli Tree of Life Sacred Scroll</option>
+                        <option>Luminous Cathedral Prism Arch</option>
+                        <option>Solar Flare Iridescent Glass Vessel</option>
+                        <option>Emerald Ocean Kiln-Fused Bas-Relief</option>
+                        <option>Custom Bespoke Commission</option>
+                    </select>
+                </div>
+
+                <div class="form-field-group form-full-span">
+                    <label class="form-field-label">Delivery Destination (City / Country)</label>
+                    <input type="text" class="form-control-input" placeholder="e.g. Mumbai, New York, London, Dubai">
+                </div>
+
+                <div class="form-field-group form-full-span">
+                    <label class="form-field-label">Inquiry Notes or Architectural Requirements</label>
+                    <textarea class="form-control-textarea" rows="3" placeholder="Specify wall specifications, custom dimensions, or delivery timeline..."></textarea>
+                </div>
+
+                <div class="form-full-span">
+                    <button type="submit" class="btn-modal-submit">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m22 2-7 20-4-9-9-4Z"/>
+                            <path d="M22 2 11 13"/>
+                        </svg>
+                        <span>Submit Private Acquisition Request</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         8. PURE CSS LIGHTBOX PREVIEW MODAL 1 (Sample of :target Lightbox)
+         ==================================================================== -->
+    <div id="art-modal-1" class="modal-overlay">
+        <a href="#exhibition" class="modal-backdrop-exit" aria-label="Close Lightbox"></a>
+        <div class="modal-dialog-card lightbox-card">
+            <a href="#exhibition" class="modal-close-symbol" aria-label="Close">&times;</a>
+            <div class="lightbox-inner-layout">
+                <div class="lightbox-img-pane">
+                    <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?w=1200&auto=format&fit=crop&q=85" alt="Celestial Thikri Mirror Mosaic Full View">
+                </div>
+                <div class="lightbox-content-pane">
+                    <span class="card-category-name" style="margin-bottom:0.4rem;">Mirror Art Archive</span>
+                    <h3 class="card-title" style="font-size:1.6rem; margin-bottom:0.75rem;">Celestial Thikri Mirror Mosaic</h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
+                        A transcendent exploration of sacred geometric reflections. Over 680 individually diamond-cut convex mirrors are meticulously inlaid on seasoned teak wood, finished with pure 24-karat gold leaf gilding.
+                    </p>
+                    <div class="card-spec-box" style="margin-bottom:1.5rem;">
+                        <div class="spec-line"><strong>Origin:</strong> Jaipur Atelier Guild</div>
+                        <div class="spec-line"><strong>Medium:</strong> Hand-cut Belgian mirror, Teak, 24K Leaf</div>
+                        <div class="spec-line"><strong>Dimensions:</strong> 36" × 36" × 2" (91.4 cm × 91.4 cm)</div>
+                        <div class="spec-line"><strong>Status:</strong> Edition 1 of 3 Available</div>
+                    </div>
+                    <div style="margin-top:auto;">
+                        <a href="#inquiry-modal" class="btn-card-inquire" style="width:100%; text-align:center;">Request Acquisition Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURE CSS LIGHTBOX PREVIEW MODAL 4 -->
+    <div id="art-modal-4" class="modal-overlay">
+        <a href="#exhibition" class="modal-backdrop-exit" aria-label="Close Lightbox"></a>
+        <div class="modal-dialog-card lightbox-card">
+            <a href="#exhibition" class="modal-close-symbol" aria-label="Close">&times;</a>
+            <div class="lightbox-inner-layout">
+                <div class="lightbox-img-pane">
+                    <img src="https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=1200&auto=format&fit=crop&q=85" alt="Azure Venetian Glass Inlay Full View">
+                </div>
+                <div class="lightbox-content-pane">
+                    <span class="card-category-name" style="margin-bottom:0.4rem;">Mosaic Inlay Archive</span>
+                    <h3 class="card-title" style="font-size:1.6rem; margin-bottom:0.75rem;">Azure Venetian Glass Inlay</h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
+                        Hand-snipped Murano glass smalti fired with metallic copper and cobalt oxides. The micro-tesserae capture shifting ambient light, mimicking the luminescence of Venetian lagoon tides.
+                    </p>
+                    <div class="card-spec-box" style="margin-bottom:1.5rem;">
+                        <div class="spec-line"><strong>Origin:</strong> Venice & Mumbai Atelier Collaboration</div>
+                        <div class="spec-line"><strong>Medium:</strong> Venetian Smalti, Marine Substrate</div>
+                        <div class="spec-line"><strong>Dimensions:</strong> 32" × 32" × 2" (81.2 cm × 81.2 cm)</div>
+                        <div class="spec-line"><strong>Status:</strong> Unique Single Masterpiece</div>
+                    </div>
+                    <div style="margin-top:auto;">
+                        <a href="#inquiry-modal" class="btn-card-inquire" style="width:100%; text-align:center;">Request Acquisition Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PURE CSS LIGHTBOX PREVIEW MODAL 7 -->
+    <div id="art-modal-7" class="modal-overlay">
+        <a href="#exhibition" class="modal-backdrop-exit" aria-label="Close Lightbox"></a>
+        <div class="modal-dialog-card lightbox-card">
+            <a href="#exhibition" class="modal-close-symbol" aria-label="Close">&times;</a>
+            <div class="lightbox-inner-layout">
+                <div class="lightbox-img-pane">
+                    <img src="https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=1200&auto=format&fit=crop&q=85" alt="Royal Elephant Madhubani Heritage Full View">
+                </div>
+                <div class="lightbox-content-pane">
+                    <span class="card-category-name" style="margin-bottom:0.4rem;">Royal Folk Archive</span>
+                    <h3 class="card-title" style="font-size:1.6rem; margin-bottom:0.75rem;">Royal Elephant Madhubani Heritage</h3>
+                    <p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.6; margin-bottom:1.25rem;">
+                        Executed with fine bamboo nibs using organic pigments ground from lamp soot, turmeric root, indigo leaf, and marigold petals on handmade archival rag paper.
+                    </p>
+                    <div class="card-spec-box" style="margin-bottom:1.5rem;">
+                        <div class="spec-line"><strong>Origin:</strong> Mithila Region, Bihar</div>
+                        <div class="spec-line"><strong>Medium:</strong> Natural Pigments on Lokta Cotton Canvas</div>
+                        <div class="spec-line"><strong>Dimensions:</strong> 40" × 30" (101.6 cm × 76.2 cm)</div>
+                        <div class="spec-line"><strong>Status:</strong> Master Work — 5 Available</div>
+                    </div>
+                    <div style="margin-top:auto;">
+                        <a href="#inquiry-modal" class="btn-card-inquire" style="width:100%; text-align:center;">Request Acquisition Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ====================================================================
+         9. CURATED EXHIBITION FOOTER
+         ==================================================================== -->
+    <footer class="curated-footer" id="contact">
+        <div class="container">
+            <div class="footer-top-grid">
                 
-                <div class="col-md-4 mb-3">
-                    <div class="footer-card p-4 border rounded h-100">
-                        <h6>Corporate Office</h6>
-                        <p class="small text-muted mb-0">123 Creative Plaza, Art District, Mumbai 400001</p>
+                <!-- Brand & Mission Column -->
+                <div class="footer-brand-bio">
+                    <h4 class="footer-logo-title">The Art Studio</h4>
+                    <p class="footer-brand-desc">
+                        A private atelier dedicated to the conservation, contemporary reinterpretation, and bespoke commission of classical mirror crafts, architectural mosaic inlays, and sacred folk heritage.
+                    </p>
+                    <div class="status-pill live" style="display:inline-flex;">
+                        <span class="status-pulse-dot"></span>
+                        <span>Private Viewings by Appointment</span>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="footer-card p-4 border rounded h-100">
-                        <h6>Quick Links</h6>
-                        <ul class="list-unstyled small text-muted mb-0">
-                            <li>View Collections</li>
-                            <li>Privacy Policy</li>
-                            <li>Terms of Exhibition</li>
-                        </ul>
-                    </div>
+
+                <!-- Column 2: Curated Collections -->
+                <div>
+                    <h5 class="footer-col-heading">Collections</h5>
+                    <ul class="footer-links-list">
+                        <li><label for="filter-mirror" style="cursor:pointer;" class="footer-link">Mirror Art Archive</label></li>
+                        <li><label for="filter-mosaic" style="cursor:pointer;" class="footer-link">Venetian Smalti Mosaics</label></li>
+                        <li><label for="filter-folk" style="cursor:pointer;" class="footer-link">Royal Folk Traditions</label></li>
+                        <li><label for="filter-glass" style="cursor:pointer;" class="footer-link">Contemporary Glasswork</label></li>
+                        <li><a href="#inquiry-modal" class="footer-link">Bespoke Architectural Installations</a></li>
+                    </ul>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="footer-card p-4 border rounded h-100 text-center">
-                        <h6>Follow the Studio</h6>
-                        <div class="fs-4 mt-2">
-                            <i class="bi bi-instagram mx-2"></i>
-                            <i class="bi bi-pinterest mx-2"></i>
-                            <i class="bi bi-facebook mx-2"></i>
+
+                <!-- Column 3: Atelier Locations -->
+                <div>
+                    <h5 class="footer-col-heading">Atelier Locations</h5>
+                    <div class="footer-atelier-contact">
+                        <div>
+                            <strong>Mumbai Atelier</strong>
+                            <p>123 Creative Plaza, Art District, Mumbai 400001</p>
+                        </div>
+                        <div>
+                            <strong>London Advisory</strong>
+                            <p>44 Mayfair Gallery Walk, London W1J 8DX</p>
+                        </div>
+                        <div>
+                            <strong>Concierge Desk</strong>
+                            <p>Direct: +91 1800-ART-HUB</p>
+                            <p>Email: support@arthub.com</p>
                         </div>
                     </div>
                 </div>
+
+                <!-- Column 4: Vernissage Newsletter -->
+                <div>
+                    <h5 class="footer-col-heading">Private Invitations</h5>
+                    <p style="font-size:0.82rem; color:var(--text-inverse-muted); line-height:1.6; margin-bottom:0.75rem;">
+                        Receive private catalog vernissage previews and invitations to salon exhibitions before public release.
+                    </p>
+                    <form class="footer-newsletter-wrap" action="#" method="get" onsubmit="alert('Thank you for subscribing. You will receive private salon invitations.'); return false;">
+                        <div class="newsletter-input-group">
+                            <input type="email" class="newsletter-input" placeholder="Your collector email..." required>
+                            <button type="submit" class="newsletter-btn">Join</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
-            <div class="text-center mt-5 pt-3 border-top">
-                <p class="small text-muted mb-0">© 2026 THE ART STUDIO | Professional Portfolio Project</p>
+
+            <!-- Footer Bottom Strip -->
+            <div class="footer-bottom-strip">
+                <div>
+                    <p>© 2026 THE ART STUDIO | ArtHub.com Curated Exhibition Portfolio. Crafted with Pure HTML5 & CSS3.</p>
+                </div>
+
+                <div class="footer-social-icons">
+                    <a href="#contact" class="footer-social-link" title="Instagram">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="footer-social-link" title="Pinterest">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                    </a>
+                    <a href="#contact" class="footer-social-link" title="Artsy Gallery">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                        </svg>
+                    </a>
+                </div>
             </div>
+
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>

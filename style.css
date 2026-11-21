@@ -1,80 +1,1635 @@
+/* ==========================================================================
+   THE ART STUDIO — LUXURY ATELIER & CURATED EXHIBITION
+   Modern Pure CSS Architecture (No External CSS Frameworks)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties / Design Tokens
+   -------------------------------------------------------------------------- */
 :root {
-    --primary-font: 'Inter', sans-serif;
-    --logo-font: 'Playfair Display', serif;
-    --dark: #1a1a1a;
-    --accent: #b89354; /* Premium Gold for Discount badges */
+    /* Typography */
+    --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --font-display: 'Cinzel', 'Playfair Display', Georgia, serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    /* Luxury Palette */
+    --bg-page: #fbfaf7;
+    --bg-surface: #ffffff;
+    --bg-surface-alt: #f6f3ed;
+    --bg-surface-elevated: #ffffff;
+    --bg-dark: #0e1014;
+    --bg-dark-surface: #16191f;
+    --bg-dark-card: #1f232b;
+    
+    /* Accents & Metals */
+    --gold-primary: #c29b38;
+    --gold-hover: #d9ad42;
+    --gold-deep: #967421;
+    --gold-light: rgba(194, 155, 56, 0.14);
+    --gold-border: rgba(194, 155, 56, 0.35);
+    
+    /* Text Colors */
+    --text-primary: #17181c;
+    --text-secondary: #5e6068;
+    --text-muted: #8b8d96;
+    --text-inverse: #fbfaf7;
+    --text-inverse-muted: #a3a6b2;
+    
+    /* Borders & Dividers */
+    --border-subtle: #eae6de;
+    --border-medium: #d8d3c7;
+    --border-dark: #262a34;
+    
+    /* Feedback & Status */
+    --status-live: #2b8a3e;
+    --status-live-bg: rgba(43, 138, 62, 0.12);
+    --status-exclusive: #862e9c;
+    --status-exclusive-bg: rgba(134, 46, 156, 0.12);
+    --status-new: #1971c2;
+    --status-new-bg: rgba(25, 113, 194, 0.12);
+    
+    /* Elevations & Shadows */
+    --shadow-sm: 0 2px 8px rgba(18, 20, 24, 0.04);
+    --shadow-md: 0 8px 24px rgba(18, 20, 24, 0.07);
+    --shadow-lg: 0 16px 40px rgba(18, 20, 24, 0.10);
+    --shadow-xl: 0 24px 60px rgba(18, 20, 24, 0.14);
+    --shadow-gold: 0 8px 25px rgba(194, 155, 56, 0.28);
+    
+    /* Spacing & Radii */
+    --radius-xs: 2px;
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    
+    /* Transitions */
+    --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-base: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-body { font-family: var(--primary-font); background-color: #ffffff; color: var(--dark); overflow-x: hidden; }
-
-/* Branding */
-.logo-text { font-family: var(--logo-font); font-weight: 700; text-decoration: underline; letter-spacing: -1px; }
-.url-text { color: #0d6efd; font-size: 0.85rem; font-weight: bold; margin-top: -5px; }
-
-/* Mobile Sidebar Logic (The "Pro" Way) */
-@media (max-width: 991px) {
-    .sidebar-container {
-        position: fixed;
-        top: 0;
-        left: -100%; /* Hidden by default */
-        width: 300px;
-        height: 100vh;
-        background: white;
-        z-index: 2000;
-        transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        box-shadow: 15px 0 50px rgba(0,0,0,0.1);
-        overflow-y: auto;
-    }
-    .sidebar-container.active { left: 0; }
+/* --------------------------------------------------------------------------
+   2. Reset & Base Styles
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-/* Category UI */
-.btn-cat {
-    text-align: left;
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+button, input, select, textarea {
+    font: inherit;
+    color: inherit;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--bg-surface-alt);
+}
+::-webkit-scrollbar-thumb {
+    background: #c7c2b5;
+    border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. Utility & Layout Container
+   -------------------------------------------------------------------------- */
+.container {
+    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(1rem, 4vw, 3rem);
+    padding-right: clamp(1rem, 4vw, 3rem);
+}
+
+/* --------------------------------------------------------------------------
+   4. Pure CSS Hidden Controllers (Checkbox / Radio State Engine)
+   -------------------------------------------------------------------------- */
+.state-controller {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. Top Bar & Announcement Header
+   -------------------------------------------------------------------------- */
+.top-notice-bar {
+    background-color: var(--bg-dark);
+    color: var(--text-inverse-muted);
+    font-size: 0.8rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid var(--border-dark);
+}
+
+.top-notice-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.notice-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: var(--text-inverse);
+}
+
+.notice-badge-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--gold-primary);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--gold-primary);
+}
+
+.top-contact-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.top-contact-links a {
+    color: var(--text-inverse-muted);
+    transition: color var(--transition-fast);
+}
+
+.top-contact-links a:hover {
+    color: var(--gold-hover);
+}
+
+.top-contact-links strong {
+    color: var(--text-inverse);
     font-weight: 600;
-    border-radius: 0;
-    border-bottom: 1px solid #f0f0f0;
-    padding: 12px 0;
 }
 
-.sub-list li {
-    padding: 8px 0;
-    font-size: 0.9rem;
-    color: #666;
+/* --------------------------------------------------------------------------
+   6. Main Header & Atelier Branding
+   -------------------------------------------------------------------------- */
+.main-header {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 1.25rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: box-shadow var(--transition-base);
+}
+
+.main-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+/* Logo Lockup */
+.brand-lockup {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.brand-emblem {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-card) 100%);
+    border: 1px solid var(--gold-border);
+    border-radius: var(--radius-xs);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold-primary);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.brand-names {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+    line-height: 1.1;
+}
+
+.brand-subtitle {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    margin-top: 3px;
+}
+
+/* Desktop Navigation */
+.desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    position: relative;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: var(--gold-primary);
+    transition: width var(--transition-base);
+}
+
+.nav-link:hover {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+
+.nav-link.active {
+    color: var(--text-primary);
+}
+
+/* Header CTAs */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-inquire-gold {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-deep) 100%);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.65rem 1.35rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--gold-primary);
+    box-shadow: 0 4px 14px rgba(194, 155, 56, 0.25);
+    transition: all var(--transition-base);
     cursor: pointer;
-    transition: 0.2s;
 }
 
-.sub-list li:hover { color: var(--accent); transform: translateX(5px); }
-
-/* Art Card (No Price Design) */
-.art-card {
-    border: 1px solid #eee;
-    height: 100%;
-    transition: 0.3s ease;
+.btn-inquire-gold:hover {
+    background: linear-gradient(135deg, var(--gold-hover) 0%, var(--gold-primary) 100%);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
 }
 
-.art-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+/* Mobile Toggle Hamburger */
+.mobile-trigger-btn {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    padding: 8px;
+    transition: all var(--transition-fast);
+}
 
-.img-frame {
-    height: 300px;
-    background: #f8f8f8;
+.mobile-trigger-btn span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--transition-base);
+}
+
+.mobile-trigger-btn:hover {
+    border-color: var(--gold-primary);
+    background: var(--bg-surface-alt);
+}
+
+/* --------------------------------------------------------------------------
+   7. Curatorial Hero & Exhibition Banner
+   -------------------------------------------------------------------------- */
+.curatorial-hero {
+    background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-surface-alt) 100%);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: clamp(2.5rem, 5vw, 4.5rem) 0 clamp(2rem, 4vw, 3.5rem);
     position: relative;
     overflow: hidden;
 }
 
-.img-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-.discount-tag {
+.curatorial-hero::before {
+    content: '';
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: var(--accent);
-    color: white;
-    padding: 4px 10px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-transform: uppercase;
+    top: -50%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(194, 155, 56, 0.08) 0%, transparent 70%);
+    pointer-events: none;
 }
 
-.qty-tag { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 1px; }
+.hero-content {
+    max-width: 880px;
+}
+
+.hero-meta-strip {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-full);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.status-pill.live {
+    background-color: var(--status-live-bg);
+    color: var(--status-live);
+    border: 1px solid rgba(43, 138, 62, 0.25);
+}
+
+.status-pulse-dot {
+    width: 7px;
+    height: 7px;
+    background-color: var(--status-live);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--status-live);
+    animation: statusPulse 2s infinite ease-in-out;
+}
+
+@keyframes statusPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.exhibition-year {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.hero-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4.8vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    color: var(--text-primary);
+    margin-bottom: 1.25rem;
+}
+
+.hero-title em {
+    font-family: var(--font-heading);
+    font-style: italic;
+    font-weight: 400;
+    color: var(--gold-deep);
+}
+
+.hero-desc {
+    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 740px;
+    margin-bottom: 2rem;
+    line-height: 1.7;
+}
+
+/* Hero Metrics Grid */
+.hero-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-medium);
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.metric-number {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+    margin-bottom: 0.35rem;
+}
+
+.metric-number span {
+    color: var(--gold-primary);
+}
+
+.metric-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   8. Pure CSS Interactive Filter Bar
+   -------------------------------------------------------------------------- */
+.filter-sticky-strip {
+    background-color: var(--bg-surface);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.85rem 0;
+    position: sticky;
+    top: 76px;
+    z-index: 90;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+.filter-strip-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Category Filter Pills (Pure CSS Radio Labels) */
+.filter-pills-cluster {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+}
+
+.filter-pills-cluster::-webkit-scrollbar {
+    display: none;
+}
+
+.filter-label-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-full);
+    background-color: var(--bg-surface);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    user-select: none;
+}
+
+.filter-label-btn:hover {
+    border-color: var(--gold-primary);
+    color: var(--text-primary);
+    background-color: var(--bg-surface-alt);
+}
+
+.filter-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-full);
+    background-color: var(--bg-surface-alt);
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+/* Search Bar (Pure HTML/CSS Styled Input) */
+.search-archive-wrapper {
+    position: relative;
+    min-width: 260px;
+    flex-grow: 0;
+}
+
+.search-icon-svg {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.search-archive-input {
+    width: 100%;
+    padding: 0.5rem 1rem 0.5rem 2.3rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-full);
+    background-color: var(--bg-surface-alt);
+    font-size: 0.82rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.search-archive-input:focus {
+    border-color: var(--gold-primary);
+    background-color: var(--bg-surface);
+    box-shadow: 0 0 0 3px var(--gold-light);
+}
+
+/* --------------------------------------------------------------------------
+   9. Pure CSS Filter State Bindings (No JavaScript Required)
+   Using :has() and sibling selectors for 100% universal browser filtering
+   -------------------------------------------------------------------------- */
+
+/* Active Filter Pill Styling */
+body:has(#filter-all:checked) label[for="filter-all"],
+body:has(#filter-mirror:checked) label[for="filter-mirror"],
+body:has(#filter-mosaic:checked) label[for="filter-mosaic"],
+body:has(#filter-folk:checked) label[for="filter-folk"],
+body:has(#filter-glass:checked) label[for="filter-glass"] {
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-card) 100%);
+    color: #ffffff;
+    border-color: var(--bg-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+body:has(#filter-all:checked) label[for="filter-all"] .filter-count,
+body:has(#filter-mirror:checked) label[for="filter-mirror"] .filter-count,
+body:has(#filter-mosaic:checked) label[for="filter-mosaic"] .filter-count,
+body:has(#filter-folk:checked) label[for="filter-folk"] .filter-count,
+body:has(#filter-glass:checked) label[for="filter-glass"] .filter-count {
+    background-color: var(--gold-primary);
+    color: #ffffff;
+}
+
+/* Sidebar Active Category Styling */
+body:has(#filter-all:checked) .sidebar-cat-link[for="filter-all"],
+body:has(#filter-mirror:checked) .sidebar-cat-link[for="filter-mirror"],
+body:has(#filter-mosaic:checked) .sidebar-cat-link[for="filter-mosaic"],
+body:has(#filter-folk:checked) .sidebar-cat-link[for="filter-folk"],
+body:has(#filter-glass:checked) .sidebar-cat-link[for="filter-glass"] {
+    color: var(--gold-deep);
+    font-weight: 700;
+    padding-left: 0.5rem;
+    border-left: 2px solid var(--gold-primary);
+}
+
+/* Pure CSS Gallery Card Visibility Filtering */
+body:has(#filter-mirror:checked) .art-card:not([data-category="mirror"]),
+body:has(#filter-mosaic:checked) .art-card:not([data-category="mosaic"]),
+body:has(#filter-folk:checked) .art-card:not([data-category="folk"]),
+body:has(#filter-glass:checked) .art-card:not([data-category="glass"]) {
+    display: none !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. Main Gallery & Sidebar Architecture (.app-layout)
+   -------------------------------------------------------------------------- */
+.app-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: clamp(1.5rem, 3vw, 2.75rem);
+    padding-top: 2.5rem;
+    padding-bottom: 4.5rem;
+    align-items: start;
+}
+
+/* Sidebar */
+.sidebar-container {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    position: sticky;
+    top: 145px;
+}
+
+.sidebar-header-mobile {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.sidebar-heading {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Pure HTML5 Native Accordion (<details> & <summary>) */
+.category-accordion {
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 0.85rem;
+}
+
+.category-accordion:last-of-type {
+    border-bottom: none;
+}
+
+.category-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    padding: 0.35rem 0;
+    transition: color var(--transition-fast);
+}
+
+.category-summary::-webkit-details-marker {
+    display: none;
+}
+
+.category-summary:hover {
+    color: var(--gold-deep);
+}
+
+.accordion-chevron {
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+    transition: transform var(--transition-base);
+}
+
+details[open] .accordion-chevron {
+    transform: rotate(180deg);
+    color: var(--gold-primary);
+}
+
+.sub-category-list {
+    margin-top: 0.5rem;
+    padding-left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.sidebar-cat-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 0.3rem 0;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.sidebar-cat-link:hover {
+    color: var(--gold-deep);
+    transform: translateX(4px);
+}
+
+/* Sidebar Info Card / Atelier Concierge */
+.sidebar-atelier-card {
+    margin-top: 1.75rem;
+    background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-dark-surface) 100%);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
+    color: var(--text-inverse);
+}
+
+.atelier-card-badge {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-primary);
+    margin-bottom: 0.5rem;
+}
+
+.atelier-card-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.6rem;
+}
+
+.atelier-card-text {
+    font-size: 0.78rem;
+    color: var(--text-inverse-muted);
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.atelier-card-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: var(--gold-primary);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.6rem 0.8rem;
+    border-radius: var(--radius-xs);
+    transition: background var(--transition-fast);
+}
+
+.atelier-card-btn:hover {
+    background-color: var(--gold-hover);
+}
+
+/* --------------------------------------------------------------------------
+   11. Main Art Grid & Cards
+   -------------------------------------------------------------------------- */
+.gallery-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.gallery-section-title {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.gallery-curation-note {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.art-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 1.75rem;
+}
+
+/* The Art Card */
+.art-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+    position: relative;
+}
+
+.art-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold-border);
+}
+
+/* Image Frame */
+.card-img-frame {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    background-color: var(--bg-surface-alt);
+    overflow: hidden;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform var(--transition-smooth);
+}
+
+.art-card:hover .card-img {
+    transform: scale(1.07);
+}
+
+/* Card Badges */
+.card-badge {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-xs);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 2;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.card-badge.gold {
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-deep) 100%);
+    color: #ffffff;
+}
+
+.card-badge.exclusive {
+    background: linear-gradient(135deg, #2b2e38 0%, #17181c 100%);
+    color: var(--gold-primary);
+    border: 1px solid var(--gold-border);
+}
+
+.card-badge.new {
+    background: linear-gradient(135deg, #1864ab 0%, #0c4a7f 100%);
+    color: #ffffff;
+}
+
+/* Quick View Overlay Button on Hover */
+.quick-view-overlay-btn {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    transform: translate(-50%, 20px);
+    opacity: 0;
+    pointer-events: none;
+    background-color: rgba(14, 16, 20, 0.88);
+    color: #ffffff;
+    padding: 0.5rem 1.1rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all var(--transition-base);
+    white-space: nowrap;
+    z-index: 3;
+}
+
+.art-card:hover .quick-view-overlay-btn {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, 0);
+}
+
+.quick-view-overlay-btn:hover {
+    background-color: var(--gold-primary);
+    border-color: var(--gold-primary);
+}
+
+/* Card Body */
+.card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-category-strip {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.card-category-name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gold-deep);
+}
+
+.card-availability {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.card-title {
+    font-family: var(--font-heading);
+    font-size: 1.22rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+}
+
+.card-desc {
+    font-size: 0.84rem;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+}
+
+/* Specifications Spec Box */
+.card-spec-box {
+    background-color: var(--bg-surface-alt);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 0.85rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.spec-line strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* Card Action Buttons */
+.card-actions-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.65rem;
+    align-items: center;
+}
+
+.btn-card-inquire {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.65rem 1rem;
+    border-radius: var(--radius-xs);
+    border: 1px solid var(--bg-dark);
+    transition: all var(--transition-fast);
+}
+
+.btn-card-inquire:hover {
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-deep) 100%);
+    border-color: var(--gold-primary);
+    box-shadow: 0 4px 12px rgba(194, 155, 56, 0.25);
+}
+
+.btn-card-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-xs);
+    color: var(--text-secondary);
+    background-color: var(--bg-surface);
+    transition: all var(--transition-fast);
+}
+
+.btn-card-view:hover {
+    border-color: var(--gold-primary);
+    color: var(--gold-deep);
+    background-color: var(--bg-surface-alt);
+}
+
+/* --------------------------------------------------------------------------
+   12. Curatorial Pillars / Craftsmanship Feature Section
+   -------------------------------------------------------------------------- */
+.craftsmanship-section {
+    background: linear-gradient(180deg, var(--bg-surface-alt) 0%, var(--bg-surface) 100%);
+    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+}
+
+.section-lead-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto 3.5rem auto;
+}
+
+.section-subtitle-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--gold-deep);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.section-main-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.section-lead-text {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.craftsmanship-pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.pillar-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 2.25rem 1.75rem;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+}
+
+.pillar-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--gold-border);
+}
+
+.pillar-num {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--gold-primary);
+    margin-bottom: 1rem;
+    line-height: 1;
+}
+
+.pillar-title {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.pillar-desc {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    line-height: 1.65;
+}
+
+/* --------------------------------------------------------------------------
+   13. Pure CSS Lightbox & Acquisition Modals (via :target)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(14, 16, 20, 0.82);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity var(--transition-base), visibility var(--transition-base);
+    z-index: 1000;
+    padding: 1.5rem;
+}
+
+.modal-backdrop-exit {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.modal-dialog-card {
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-xl);
+    width: 100%;
+    max-width: 760px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: clamp(1.75rem, 3.5vw, 2.75rem);
+    transform: translateY(20px) scale(0.97);
+    transition: transform var(--transition-smooth);
+}
+
+.modal-close-symbol {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--bg-surface-alt);
+    border: 1px solid var(--border-subtle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--text-secondary);
+    transition: all var(--transition-fast);
+}
+
+.modal-close-symbol:hover {
+    background-color: var(--bg-dark);
+    color: #ffffff;
+}
+
+/* Modal Open State Triggered By URL Hash (#inquiry-modal:target) */
+.modal-overlay:target {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-overlay:target .modal-dialog-card {
+    transform: translateY(0) scale(1);
+}
+
+/* Form Inside Modal */
+.modal-form-header {
+    margin-bottom: 1.75rem;
+}
+
+.modal-form-badge {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--gold-deep);
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.modal-form-title {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.modal-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.form-full-span {
+    grid-column: 1 / -1;
+}
+
+.form-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.form-field-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.form-control-input,
+.form-control-select,
+.form-control-textarea {
+    width: 100%;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid var(--border-medium);
+    border-radius: var(--radius-xs);
+    background-color: var(--bg-surface-alt);
+    font-size: 0.88rem;
+    color: var(--text-primary);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+.form-control-input:focus,
+.form-control-select:focus,
+.form-control-textarea:focus {
+    border-color: var(--gold-primary);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px var(--gold-light);
+}
+
+.btn-modal-submit {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.85rem 1.5rem;
+    background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-deep) 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none;
+    border-radius: var(--radius-xs);
+    cursor: pointer;
+    box-shadow: var(--shadow-gold);
+    transition: all var(--transition-fast);
+    margin-top: 0.5rem;
+}
+
+.btn-modal-submit:hover {
+    background: linear-gradient(135deg, var(--gold-hover) 0%, var(--gold-primary) 100%);
+    transform: translateY(-2px);
+}
+
+/* Lightbox Modal Card */
+.lightbox-card {
+    max-width: 900px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.lightbox-inner-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.lightbox-img-pane {
+    height: 100%;
+    min-height: 420px;
+    background-color: var(--bg-dark);
+}
+
+.lightbox-img-pane img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lightbox-content-pane {
+    padding: 2.25rem 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   14. Curated Exhibition Footer
+   -------------------------------------------------------------------------- */
+.curated-footer {
+    background-color: var(--bg-dark);
+    color: var(--text-inverse);
+    border-top: 1px solid var(--border-dark);
+    padding-top: 4.5rem;
+    padding-bottom: 2rem;
+}
+
+.footer-top-grid {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr);
+    gap: clamp(2rem, 4vw, 3.5rem);
+    margin-bottom: 3.5rem;
+}
+
+.footer-brand-bio {
+    max-width: 360px;
+}
+
+.footer-logo-title {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-inverse);
+    margin-bottom: 0.5rem;
+}
+
+.footer-brand-desc {
+    font-size: 0.85rem;
+    color: var(--text-inverse-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.footer-col-heading {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold-primary);
+    margin-bottom: 1.25rem;
+}
+
+.footer-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.footer-links-list a {
+    font-size: 0.85rem;
+    color: var(--text-inverse-muted);
+    transition: all var(--transition-fast);
+}
+
+.footer-links-list a:hover {
+    color: #ffffff;
+    transform: translateX(4px);
+}
+
+.footer-atelier-contact {
+    font-size: 0.85rem;
+    color: var(--text-inverse-muted);
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-atelier-contact strong {
+    color: var(--text-inverse);
+}
+
+/* Newsletter in Footer */
+.footer-newsletter-wrap {
+    margin-top: 1.25rem;
+}
+
+.newsletter-input-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.newsletter-input {
+    background-color: var(--bg-dark-card);
+    border: 1px solid var(--border-dark);
+    border-radius: var(--radius-xs);
+    padding: 0.6rem 0.85rem;
+    font-size: 0.8rem;
+    color: #ffffff;
+    outline: none;
+    flex-grow: 1;
+}
+
+.newsletter-input:focus {
+    border-color: var(--gold-primary);
+}
+
+.newsletter-btn {
+    background-color: var(--gold-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-xs);
+    padding: 0.6rem 1rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: background var(--transition-fast);
+}
+
+.newsletter-btn:hover {
+    background-color: var(--gold-hover);
+}
+
+/* Footer Bottom Bar */
+.footer-bottom-strip {
+    border-top: 1px solid var(--border-dark);
+    padding-top: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    font-size: 0.78rem;
+    color: var(--text-inverse-muted);
+}
+
+.footer-social-icons {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.footer-social-link {
+    color: var(--text-inverse-muted);
+    transition: color var(--transition-fast);
+}
+
+.footer-social-link:hover {
+    color: var(--gold-primary);
+}
+
+/* --------------------------------------------------------------------------
+   15. Pure CSS Responsive Drawer & Media Queries
+   -------------------------------------------------------------------------- */
+.drawer-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(14, 16, 20, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+}
+
+@media (max-width: 1024px) {
+    .app-layout {
+        grid-template-columns: 240px 1fr;
+        gap: 1.5rem;
+    }
+    
+    .footer-top-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .desktop-nav {
+        display: none;
+    }
+    
+    .mobile-trigger-btn {
+        display: flex;
+    }
+    
+    .app-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Pure CSS Mobile Sidebar Drawer */
+    .sidebar-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 320px;
+        height: 100vh;
+        z-index: 999;
+        transform: translateX(-105%);
+        transition: transform var(--transition-smooth);
+        overflow-y: auto;
+        box-shadow: var(--shadow-xl);
+        border-radius: 0;
+    }
+    
+    .sidebar-header-mobile {
+        display: flex;
+    }
+    
+    .drawer-backdrop {
+        display: block;
+    }
+    
+    /* Checkbox Triggered Mobile Drawer */
+    body:has(#sidebar-toggle:checked) .sidebar-container {
+        transform: translateX(0);
+    }
+    
+    body:has(#sidebar-toggle:checked) .drawer-backdrop {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    
+    .lightbox-inner-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .lightbox-img-pane {
+        min-height: 280px;
+    }
+    
+    .modal-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .top-notice-bar {
+        display: none;
+    }
+    
+    .filter-strip-inner {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-archive-wrapper {
+        width: 100%;
+    }
+    
+    .art-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-top-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .footer-bottom-strip {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.25rem;
+    }
+}
